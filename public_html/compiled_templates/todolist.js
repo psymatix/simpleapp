@@ -1,0 +1,2 @@
+if (!!!templates) var templates = {};
+templates["todolist"] = new Hogan.Template({code: function (c,p,i) { var t=this;t.b(i=i||"");t.b("<ul>\r");t.b("\n" + i);if(t.s(t.f("list",c,p,1),c,p,0,15,40,"{{ }}")){t.rs(c,p,function(c,p,t){t.b("    <li>");t.b(t.v(t.f("item",c,p,0)));t.b("</li>\r");t.b("\n" + i);});c.pop();}t.b("</ul>");return t.fl(); },partials: {}, subs: {  }});
