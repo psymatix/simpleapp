@@ -7,6 +7,12 @@ and open the template in the editor.
     <head>
         <title></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script>
+            //global dependency hogan
+            var require = {
+             deps: ['hogan.js-2.0.0/template']
+            }
+        </script>
         <script data-main="js/libs/main" src="js/libs/require.js"></script>
     </head>
     <body>
@@ -17,12 +23,6 @@ and open the template in the editor.
             <div id="showArea"></div>
             
         </div>
-        
-        <script>
-            $(document).ready(function(){
-                App.init();
-            });
-            
-        </script>
+      
     </body>
 </html>
