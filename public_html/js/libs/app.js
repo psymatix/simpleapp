@@ -21,8 +21,13 @@ define(["jquery", "greeting"], function($){
 
           showSection: function($this, data){
               var greetingTemplate = templates["greeting"],
-                      listTemplate = templates["todolist"];
-
+                      listTemplate;
+              
+              listTemplate = require(["../../compiled_templates/todolist"], function(){
+                  l = templates["todolist"];
+                  return l;
+              });
+              
               var templatedata = {"name":"Simon"};
               var listData = {
                 "list":[
@@ -32,8 +37,9 @@ define(["jquery", "greeting"], function($){
                 ]  
               };
 
+              console.log()
               $("#showArea").html( greetingTemplate.render(templatedata) );
-               $("#showArea").after("<div>" + listTemplate.render(listData) + "</div>");
+              // $("#showArea").after("<div>" + listTemplate.render(listData) + "</div>");
           }
 
         };
