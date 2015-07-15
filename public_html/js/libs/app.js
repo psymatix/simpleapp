@@ -1,9 +1,13 @@
 define(["jquery", "greeting"], function($){
 
         var App = App || {};
+        
+      
 
-        App.init = function(){
-            console.log("here");
+        App.init = function(cfg){
+            console.log("here");  
+            App.config = cfg || {};
+
           $('[data-action]').each(function(){
               $(this).on("click", function(event){
                   var $this = $(this),
@@ -17,28 +21,54 @@ define(["jquery", "greeting"], function($){
 
         };
 
+App.template = function(templateName,templateData){
+    
+    var templateType = App.config.templateType ? App.config.templateType : "runtimeCompiled";
+    
+    switch(templateType){
+        case "preCompiled":
+                return templates[ templateName ].render( templateData ) ;
+            break;
+            
+        default:
+           //use global template data var
+           App.templateData = templateData;
+           
+           var pluginref = "text!",
+           templatepath = "../../templates/" + templateName + ".mustache";
+
+           var dep = pluginref + templatepath;
+           
+           require([dep,templateData], function(t){
+                             
+                  var compiled = Hogan.compile(t),
+                  rendered = compiled.render( templateData );
+                  console.log(rendered);
+                 
+              });
+              
+            break;
+        
+    }
+}
+
         App.actions = {
 
           showSection: function($this, data){
-              var greetingTemplate = templates["greeting"],
-                      listTemplate;
               
-              listTemplate = require(["../../compiled_templates/todolist"], function(){
-                  l = templates["todolist"];
-                  return l;
-              });
-              
-              var templatedata = {"name":"Simon"};
-              var listData = {
+            var templatedata = {"name":"Simon"},
+                 listData = {
                 "list":[
                     {"item":"bread"},
                     {"item":"milk"},
                     {"item":"sugar"}
                 ]  
-              };
-
-              console.log()
-              $("#showArea").html( greetingTemplate.render(templatedata) );
+              };;
+             
+            //App.template("greeting", templatedata);
+             App.template("todolist", listData);
+            
+            //  $("#showArea").html( App.template("greeting", templatedata) );
               // $("#showArea").after("<div>" + listTemplate.render(listData) + "</div>");
           }
 

@@ -1,3 +1,5 @@
+//initialization script
+
 requirejs.config({
     paths: {
        
@@ -8,8 +10,13 @@ requirejs.config({
 });
 
 
-
+//initialize app
 requirejs(['app'], function(app){
-    app.init();
+    var cfg = {
+     //  "templateType":"preCompiled"
+    };
+    
+    app.init(cfg);
+    
 });
 
